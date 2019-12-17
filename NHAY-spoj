@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+ll n;
+void KMP_preprocess(string patt,ll reset[])
+{
+  ll i=0,j=-1;
+  reset[0]=-1;
+  while(i<n){
+  while(j>=0 && patt[i]!=patt[j])
+  {
+      j=reset[j];
+  }
+  i++,j++;
+  reset[i]=j;}
+
+}
+void KMP_search(string str,string patt,ll reset[])
+{
+    KMP_preprocess(patt,reset);
+    ll i=0,j=0;
+    while(i<str.size())
+    {
+        while(j>=0 && str[i]!=patt[j])
+        {
+            j=reset[j];
+        }
+        i++,j++;
+        if(j==n)
+        {
+            cout<<i-j<<"\n";
+            j=reset[j-1];
+            j++;
+        }
+    }
+    cout<<"\n";
+}
+int main()
+{
+    string patt,str;
+    while(cin>>n)
+    {   ll reset[n];
+        cin>>patt>>str;
+        KMP_search(str,patt,reset);
+    }
+}
