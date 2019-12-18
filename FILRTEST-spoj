@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+ int n;
+void KMP_preprocess(char patt[],int reset[])
+{
+    int i=1,j=0;
+    reset[0]=0;
+    int len=strlen(patt);
+    while(i<len)
+    {
+        if(patt[i]==patt[j])
+        {
+            j++;
+            reset[i]=j;
+            i++;
+        }
+        else
+        {
+            if(j!=0)
+            {
+              j=reset[j-1];
+            }
+            else
+            { reset[i]=0;
+            i++;
+            }
+        }
+    }
+
+   int x=(n-len)/(len-reset[len-1]);
+   printf("%d\n",x+1);
+}
+int main()
+{
+
+    char patt[1000007];
+    scanf("%d",&n);
+    scanf("%s",patt);
+    while(n!=-1)
+    {
+
+        int len=strlen(patt);
+        int reset[len];
+        if(n<len)
+        {printf("0\n");}
+        else{
+        KMP_preprocess(patt,reset);}
+    scanf("%d",&n);
+    scanf("%s",patt);
+    }
+}
